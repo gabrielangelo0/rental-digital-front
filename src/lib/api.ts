@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Criar instância do Axios para simular requisições localhost
 const api = axios.create({
-  baseURL: 'https://rental-digital-api-class.onrender.com/', // URL base do servidor local
+  baseURL: 'http://localhost:3001/', // URL base do servidor local
   timeout: 10000, // Timeout de 10 segundos
   headers: {
     'Content-Type': 'application/json',

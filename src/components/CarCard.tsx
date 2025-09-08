@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Car, Users, Fuel, Settings, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
+import { apiService } from "@/lib/api";
+import { useToast } from "@/hooks/use-toast";
 
 interface CarCardProps {
   id: string;
@@ -27,6 +29,16 @@ export const CarCard = ({
   seats, 
   available 
 }: CarCardProps) => {
+  const { toast } = useToast();
+
+  async function handleRentCar() {
+    await apiService.get("/send-email")
+    toast({
+      title: "Sucesso!",
+      description: "Carro alugado com sucesso.",
+    });
+  }
+
   return (
     <Card className="group overflow-hidden bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/30 transition-smooth hover:shadow-card">
       <CardHeader className="p-0">
@@ -92,6 +104,7 @@ export const CarCard = ({
             variant="premium"
             disabled={!available}
             className="w-full"
+            onClick={handleRentCar}
           >
             <Car className="w-4 h-4 mr-2" />
             {available ? "Alugar" : "Indisponível"}
