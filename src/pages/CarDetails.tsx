@@ -29,9 +29,11 @@ const CarDetails = () => {
   const { cars, loading, deleteCar } = useCars();
   const [car, setCar] = useState<Car | null>(null);
 
+  console.log(id);
+  console.log(cars);
   useEffect(() => {
     if (id && cars.length > 0) {
-      const foundCar = cars.find(c => c.id === id);
+      const foundCar = cars.find(c => c.id === Number(id));
       setCar(foundCar || null);
     }
   }, [id, cars]);
@@ -61,6 +63,7 @@ const CarDetails = () => {
     );
   }
 
+  console.log(car);
   if (!car) {
     return (
       <div className="min-h-screen bg-gradient-hero">
