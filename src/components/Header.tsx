@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { Car, Settings, Plus } from "lucide-react";
+import { Car, Settings, Plus, LogOut } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 export const Header = () => {
   const location = useLocation();
+  const { user, logout } = useAuth();
   
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-md">
@@ -36,6 +38,11 @@ export const Header = () => {
           </nav>
           
           <div className="flex items-center gap-3">
+            {user && (
+              <span className="text-sm text-muted-foreground hidden md:inline">
+                Olá, {user.name}
+              </span>
+            )}
             {location.pathname === "/admin" ? (
               <Button variant="premium" size="sm">
                 <Plus className="w-4 h-4 mr-2" />
@@ -49,6 +56,9 @@ export const Header = () => {
                 </Button>
               </Link>
             )}
+            <Button variant="ghost" size="sm" onClick={logout} title="Sair">
+              <LogOut className="w-4 h-4" />
+            </Button>
           </div>
         </div>
       </div>
